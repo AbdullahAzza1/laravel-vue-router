@@ -1,12 +1,12 @@
 <script>
-import AppComponent from "./components/AppComponent.vue"
+import AppEventList from "./components/AppEventList.vue"
 
 import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
 
 export default {
 	components: {
-		AppComponent
+		AppEventList
 	},
 	data() {
 		return {
@@ -16,11 +16,17 @@ export default {
 	mounted() {
 		this.doThings();
 
-		// axios.get("indirizzo").then(risultato => {
-		// 	console.log(risultato);
-		// }).catch(errore => {
-		// 	console.error(errore);
-		// });
+		axios.get("http://127.0.0.1:8000/api/prova").then(risultato => {
+			if (risultato.status === 200 && risultato.data.success) {
+				console.log(risultato.data.payload);
+
+			} else {
+
+				console.error("Ops... qualcosa è andato storto");
+			}
+		}).catch(errore => {
+			console.error(errore);
+		});
 	},
 	methods: {
 		doThings() {
